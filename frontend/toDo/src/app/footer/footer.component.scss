@@ -1,0 +1,9 @@
+.footer{
+    margin-top: 100px;
+    @media only screen and (max-width: 768px) {
+        margin-top: var(--space-md);
+    }
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: var(--font-bold);
+}

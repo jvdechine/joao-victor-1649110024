@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+    --color-white: #fff;
+    --color-red: #fd397a;
+    --color-primary: #440381;
+
+    --space-sm: 12px;
+    --space-md: 20px;
+    --space-lg: 24px;
+    --space-xl: 30px;
+
+    --font-lg: 24px;
+    --font-bold: 600;
+    --font-extra-bold: 700;
+
+    --break-point-mobile: 768px;
+}
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}

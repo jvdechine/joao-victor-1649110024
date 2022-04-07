@@ -1,0 +1,79 @@
+.to-do-home{
+    font-family: 'Montserrat';
+    .content{
+        .main-image{
+            height: 700px;
+            width: 100%;
+            position: relative;
+
+            .banner{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .main-text{
+                position: absolute;
+                top: 50px;
+                left: 50px;
+                font-size: 52px;
+                color: #fff;
+                width: 500px;
+                font-weight: var(--font-extra-bold);
+                line-height: 60px;
+
+                @media only screen and (max-width: 768px) {
+                    position: absolute;
+                    top: 50px;
+                    padding-left: var(--space-md);
+                    font-size: 32px;
+                    color: #fff;
+                    font-weight: 700;
+                    line-height: 60px;
+                    width: auto;
+                    padding-right: var(--space-md);
+                    left: 0;
+                    text-align: center;
+                }
+            }
+
+            .main-image{
+                position: absolute;
+                bottom: -100px;
+                right: 100px;
+                height: 500px;
+                object-fit: contain;
+                width: auto;
+
+                @media only screen and (max-width: 768px) {
+                    position: absolute;
+                    bottom: -200px;
+                    right: 0;
+                    height: 500px;
+                    object-fit: contain;
+                    width: inherit;
+                }
+            }
+        }
+
+        .about-us{
+            margin-top: 200px;
+
+            @media only screen and (max-width: 768px) {
+                margin-top: 300px;
+            }
+
+            .title{
+                font-size: 32px;
+                font-weight: var(--font-bold);
+                color: var(--color-primary);
+            }
+
+            li::marker {
+                color: var(--color-primary);
+            }
+        }
+
+    }
+}
+

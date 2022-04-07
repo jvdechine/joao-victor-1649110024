@@ -1,0 +1,110 @@
+<div class="header">
+    <div class="ui grid container stackable">
+        <div class="row">
+            <div class="logo two wide column">
+                <a [routerLink]="['/']">ToDo</a>
+            </div>
+            <div class="links right floated five wide column">
+                <div class="login item">
+                    <a (click)="scrollToAbout()" class="login-link">Sobre</a>
+                </div>
+                <div class="register item">
+                    <a (click)="clickLogin()" class="register-link">Entrar</a>
+                </div>
+                <div class="register item">
+                    <a (click)="clickRegister()" class="register-link">Cadastre-se</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui modal tiny modal-login">
+    <i class="icon close"></i>  
+    <div class="header">
+        <span>Entrar</span>
+    </div>
+    <div class="content scrolling">
+        <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+            <div class="container-form" >
+                <div class="container-field email">
+                    <label for="name">E-mail*</label>
+                    <input placeholder="E-mail" 
+                    formControlName="email"
+                    #email/>
+                    <div *ngIf="loginControl.email.errors && (loginControl.email.dirty || loginControl.email.touched)" class="invalid-feedback">
+                        <span *ngIf="loginControl.email.errors.required">Campo Obrigatório</span>
+                        <span *ngIf="loginControl.email.errors.pattern">Informe um e-mail válido</span>
+                    </div>
+                </div>
+
+                <div class="container-field password">
+                    <label for="password">Senha*</label>
+                    <input placeholder="Senha" 
+                    formControlName="password"
+                    #password/>
+                    <div *ngIf="loginControl.password.errors && (loginControl.password.dirty || loginControl.password.touched)" class="invalid-feedback">
+                        <span *ngIf="loginControl.password.errors.required">Campo Obrigatório</span>
+                    </div>
+                </div>
+
+                <button class="btn-login" type="button" type="submit" [disabled]="!this.loginForm.valid">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="ui modal tiny modal-register">
+    <i class="icon close"></i>  
+    <div class="header">
+        <span>Cadastre-se</span>
+    </div>
+    <div class="content scrolling">
+        <form [formGroup]="registerForm" (ngSubmit)="submitLogin()">
+            <div class="container-form">
+                <div class="container-field name">
+                    <label for="name">Nome*</label>
+                    <input placeholder="Nome" 
+                    formControlName="name"
+                    #name/>
+                    <div *ngIf="registerControl.name.errors && (registerControl.name.dirty || registerControl.name.touched)" class="invalid-feedback">
+                        <span *ngIf="registerControl.name.errors.required">Campo Obrigatório</span>
+                    </div>
+                </div>
+
+                <div class="container-field email">
+                    <label for="email">E-mail*</label>
+                    <input placeholder="E-mail" 
+                    formControlName="email"
+                    #email/>
+                    <div *ngIf="registerControl.email.errors && (registerControl.email.dirty || registerControl.email.touched)" class="invalid-feedback">
+                        <span *ngIf="registerControl.email.errors.required">Campo Obrigatório</span>
+                        <span *ngIf="registerControl.email.errors.pattern">Informe um e-mail válido</span>
+                    </div>
+                </div>
+
+                <div class="container-field phoneNumber">
+                    <label for="phoneNumber">Telefone/Celular*</label>
+                    <input placeholder="Telefone/Celular" 
+                    formControlName="phoneNumber"
+                    #phoneNumber/>
+                    <div *ngIf="registerControl.phoneNumber.errors && (registerControl.phoneNumber.dirty || registerControl.phoneNumber.touched)" class="invalid-feedback">
+                        <span *ngIf="registerControl.phoneNumber.errors.required">Campo Obrigatório</span>
+                    </div>
+                </div>
+
+                <div class="container-field password">
+                    <label for="password">Senha*</label>
+                    <input placeholder="Senha" 
+                    formControlName="password"
+                    #password/>
+                    <div *ngIf="registerControl.password.errors && (registerControl.password.dirty || registerControl.password.touched)" class="invalid-feedback">
+                        <span *ngIf="registerControl.password.errors.required">Campo Obrigatório</span>
+                    </div>
+                </div>
+
+                <button class="btn-login" type="button" type="submit" [disabled]="!this.registerForm.valid">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
