@@ -8,11 +8,14 @@
                 <div class="login item">
                     <a (click)="scrollToAbout()" class="login-link">Sobre</a>
                 </div>
-                <div class="register item">
+                <div *ngIf="!isAuthenticated" class="register item">
                     <a (click)="clickLogin()" class="register-link">Entrar</a>
                 </div>
-                <div class="register item">
+                <div *ngIf="!isAuthenticated" class="register item">
                     <a (click)="clickRegister()" class="register-link">Cadastre-se</a>
+                </div>
+                <div *ngIf="isAuthenticated" class="register item">
+                    <a [routerLink]="['/dashboard']" class="register-link">Minhas Tarefas</a>
                 </div>
             </div>
         </div>
@@ -42,6 +45,7 @@
                     <label for="password">Senha*</label>
                     <input placeholder="Senha" 
                     formControlName="password"
+                    type="password"
                     #password/>
                     <div *ngIf="loginControl.password.errors && (loginControl.password.dirty || loginControl.password.touched)" class="invalid-feedback">
                         <span *ngIf="loginControl.password.errors.required">Campo Obrigatório</span>
@@ -97,9 +101,21 @@
                     <label for="password">Senha*</label>
                     <input placeholder="Senha" 
                     formControlName="password"
+                    type="password"
                     #password/>
                     <div *ngIf="registerControl.password.errors && (registerControl.password.dirty || registerControl.password.touched)" class="invalid-feedback">
                         <span *ngIf="registerControl.password.errors.required">Campo Obrigatório</span>
+                    </div>
+                </div>
+
+                <div class="container-field confirmPassword">
+                    <label for="confirmPassword">Confirme sua Senha*</label>
+                    <input placeholder="Senha" 
+                    formControlName="confirmPassword"
+                    type="confirmPassword"
+                    #confirmPassword/>
+                    <div *ngIf="registerControl.confirmPassword.errors && (registerControl.confirmPassword.dirty || registerControl.confirmPassword.touched)" class="invalid-feedback">
+                        <span *ngIf="registerControl.confirmPassword.errors.required">Campo Obrigatório</span>
                     </div>
                 </div>
 

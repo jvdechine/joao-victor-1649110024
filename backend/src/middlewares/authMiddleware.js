@@ -28,7 +28,8 @@ function authMiddleware() {
                 } else {
                     req.token = {
                         email: decoded.email,
-                        userId: decoded.userId
+                        userId: decoded.userId,
+                        name: decoded.name
                     };
                     next();
                 }
