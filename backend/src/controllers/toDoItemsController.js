@@ -4,7 +4,7 @@ function toDoItemsController(){
     async function insertItem(req, res, next){
         var result = await toDoItemsService.insertItem(req.body.title, req.body.description, req.body.toDoId, req.body.order, req.body.done, req.body.fatherId);
         if (result.status) {
-            req._operation = "SELECT";
+            req._operation = "INSERT";
             req._result = result.result;
         } else {
             req._result = undefined;
@@ -29,9 +29,24 @@ function toDoItemsController(){
         next();
     }
 
+    async function insertAll(req, res, next){
+        var result = await toDoItemsService.insertAll(req.body, req.query.toDoId);
+        if (result.status) {
+            req._operation = "INSERT";
+            req._result = result.result;
+        } else {
+            req._result = undefined;
+            req._operation = "ERROR";
+            req._statusCode = 400;
+            req._message = "Erro ao recuperar as informações";
+        }
+        next();
+    }
+
     return {
         insertItem,
-        getAll
+        getAll,
+        insertAll
     }
 }
 

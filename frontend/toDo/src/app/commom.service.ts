@@ -27,4 +27,12 @@ export class CommomService {
 			}
 		}
 	}
+
+	addLoading(){
+		document.getElementsByTagName('body')[0].classList.add('loading');	
+	}
+
+	removeLoading(){
+		document.getElementsByTagName('body')[0].classList.remove('loading');	
+	}
 }

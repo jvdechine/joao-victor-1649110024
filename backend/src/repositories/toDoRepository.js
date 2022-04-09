@@ -18,12 +18,13 @@ function toDoRepository(){
         }
     }
 
-    async function insertToDo(userId, name){
+    async function insertToDo(userId, name, color){
         try{
             const toDo = new ToDo({
                 _id: new mongoose.Types.ObjectId(),
                 name,
-                userId
+                userId,
+                color
             })
 
             return {
@@ -39,9 +40,25 @@ function toDoRepository(){
         }
     }
 
+    async function getOne(id){
+        try{
+            return {
+                status: true,
+                result: await ToDo.findById(id)
+            }
+        }
+        catch(err){
+            return {
+                status: false,
+                result: err
+            }
+        }
+    }
+
     return {
         getAllByUser,
-        insertToDo
+        insertToDo,
+        getOne
     }
 }
 

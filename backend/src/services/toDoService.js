@@ -5,20 +5,32 @@ function toDoService(){
         return await toDoRepository.getAllByUser(userId);
     }
 
-    async function insertToDo(userId, name){
-        if(!name){
+    async function insertToDo(userId, name, color){
+        if(!name || !color){
             return {
                 status: false,
-                result: 'Por favor, informe o nome do To Do!'
+                result: 'Um ou mais campos não foram preenchidos.'
             }
         }else{
-            return await toDoRepository.insertToDo(userId, name);
+            return await toDoRepository.insertToDo(userId, name, color);
+        }
+    }
+
+    async function getOne(id){
+        if(!id){
+            return {
+                status: false,
+                result: 'Um ou mais campos não foram preenchidos.'
+            }
+        }else{
+            return await toDoRepository.getOne(id);
         }
     }
 
     return {
         getAll,
-        insertToDo
+        insertToDo,
+        getOne
     }
 }
 

@@ -5,17 +5,21 @@
                 <a [routerLink]="['/']">ToDo</a>
             </div>
             <div class="links right floated five wide column">
-                <div class="login item">
-                    <a (click)="scrollToAbout()" class="login-link">Sobre</a>
+                <div *ngIf="showLinks" class="item">
+                    <a (click)="scrollToAbout()">Sobre</a>
                 </div>
-                <div *ngIf="!isAuthenticated" class="register item">
-                    <a (click)="clickLogin()" class="register-link">Entrar</a>
+                <div *ngIf="!isAuthenticated" class="item">
+                    <a (click)="clickLogin()">Entrar</a>
                 </div>
-                <div *ngIf="!isAuthenticated" class="register item">
-                    <a (click)="clickRegister()" class="register-link">Cadastre-se</a>
+                <div *ngIf="!isAuthenticated" class="item">
+                    <a (click)="clickRegister()">Cadastre-se</a>
                 </div>
-                <div *ngIf="isAuthenticated" class="register item">
-                    <a [routerLink]="['/dashboard']" class="register-link">Minhas Tarefas</a>
+                <div *ngIf="isAuthenticated" class="item">
+                    <a [routerLink]="['/dashboard']">Minhas Tarefas</a>
+                </div>
+                <div *ngIf="isAuthenticated" class="item logout" (click)="logout()">
+                    <a>Sair</a>
+                    <i class="sign out alternate icon"></i>
                 </div>
             </div>
         </div>
@@ -64,7 +68,7 @@
         <span>Cadastre-se</span>
     </div>
     <div class="content scrolling">
-        <form [formGroup]="registerForm" (ngSubmit)="submitLogin()">
+        <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
             <div class="container-form">
                 <div class="container-field name">
                     <label for="name">Nome*</label>
@@ -110,16 +114,19 @@
 
                 <div class="container-field confirmPassword">
                     <label for="confirmPassword">Confirme sua Senha*</label>
-                    <input placeholder="Senha" 
+                    <input placeholder="Confirme sua Senha" 
                     formControlName="confirmPassword"
-                    type="confirmPassword"
+                    type="password"
                     #confirmPassword/>
                     <div *ngIf="registerControl.confirmPassword.errors && (registerControl.confirmPassword.dirty || registerControl.confirmPassword.touched)" class="invalid-feedback">
                         <span *ngIf="registerControl.confirmPassword.errors.required">Campo Obrigatório</span>
                     </div>
                 </div>
+                <div *ngIf="((registerControl.confirmPassword.dirty || registerControl.confirmPassword.touched)) && ((registerControl.password.dirty || registerControl.password.touched))" class="invalid-feedback">
+                    <span *ngIf="registerControl.confirmPassword.value != registerControl.password.value">As senhas são diferentes</span>
+                </div>
 
-                <button class="btn-login" type="button" type="submit" [disabled]="!this.registerForm.valid">Entrar</button>
+                <button class="btn-login" type="button" type="submit" [disabled]="!this.registerForm.valid">Quero me cadastrar</button>
             </div>
         </form>
     </div>

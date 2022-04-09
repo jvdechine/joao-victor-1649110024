@@ -1,0 +1,89 @@
+<div id="to-do-edit" class="to-do-edit">
+    <app-header [showLinks]="false"></app-header>
+    <div class="content" *ngIf="toDo">
+        <div class="ui grid stackable container center aligned">
+            <div class="row">
+                <div class="title-to-do">
+                    <span [style.color]="toDo.color">Nome da Tarefa: {{toDo.name}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="drag-container">
+                    <ngx-dnd-container
+                        class="root-container"
+                        [model]="nestedLists"
+                        dropZone="builder-target"
+                        direction="mixed"
+                        (drop)="onChange($event)">
+                
+                        <ng-template let-model="model" let-template="template">
+                            <div class="item">
+                                <div class="content">
+                                    <div class="title">
+                                        <span [style.color]="toDo.color">Título: {{model.title}}</span>
+                                    </div>
+                                    <div *ngIf="model.description" class="description">
+                                        {{model.description}}
+                                    </div>
+                                    <div class="status">
+                                        <span [style.color]="toDo.color">Status: </span>
+                                        <span class="done" *ngIf="model.done">Concluído</span>
+                                        <span class="not-done" *ngIf="!model.done">Não concluído</span>
+                                    </div>
+                                </div>
+                                <div class="action">
+                                    <i [style.color]="toDo.color" class="pencil alternate icon" (click)="editToDo(model)"></i>
+                                    <i *ngIf="!model.done" [style.color]="toDo.color" (click)="markAsDone(model)" class="check icon"></i>
+                                    <i *ngIf="userLogged == toDo.userId" [style.color]="toDo.color" (click)="removeItem(model)" class="trash alternate icon"></i>
+                                </div>
+                            </div>
+                            <ngx-dnd-container
+                                dropZone="builder-target"
+                                [model]="model.children"
+                                [template]="template"
+                                direction="mixed"
+                                (drop)="onChange($event)"
+                                >
+                            </ngx-dnd-container>
+                        </ng-template>
+                    </ngx-dnd-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-to-do" (click)="openModalAdd()">
+        <i class="plus icon"></i>
+    </div>
+    <div class="ui modal tiny modal-add-to-do">
+        <i class="icon close"></i>  
+        <div class="header">
+            <span>Cadastrar Tarefa</span>
+        </div>
+        <div class="content scrolling">
+            <form [formGroup]="addToDoItemForm" (ngSubmit)="submitToDo()">
+                <div class="container-form">
+                    <div class="container-field name">
+                        <label for="title">Título*</label>
+                        <input placeholder="Título" 
+                        formControlName="title"
+                        #title/>
+                        <div *ngIf="addToDoItemControl.title.errors && (addToDoItemControl.title.dirty || addToDoItemControl.title.touched)" class="invalid-feedback">
+                            <span *ngIf="addToDoItemControl.title.errors.required">Campo Obrigatório</span>
+                        </div>
+                    </div>
+                    <div class="container-field name">
+                        <label for="description">Descrição</label>
+                        <input placeholder="Descrição" 
+                        formControlName="description"
+                        #description/>
+                        <div *ngIf="addToDoItemControl.description.errors && (addToDoItemControl.description.dirty || addToDoItemControl.description.touched)" class="invalid-feedback">
+                            <span *ngIf="addToDoItemControl.description.errors.required">Campo Obrigatório</span>
+                        </div>
+                    </div>
+                    <button class="btn-to-do" type="button" type="submit" [disabled]="!this.addToDoItemForm.valid">{{toDoItem ? 'Editar' : 'Criar'}} Tarefa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

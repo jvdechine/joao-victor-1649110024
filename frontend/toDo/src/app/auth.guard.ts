@@ -17,14 +17,13 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if(sessionStorage.getItem('token')?.length > 0){
-      var token = sessionStorage.getItem('token');
       return new Promise((resolve, reject) => {
         this.authService.verifyIfIsAuth().toPromise()
         .then(
           data => {
             if(sessionStorage.getItem('lastTimeAuthenticated')){
               var lastTimeAuthenticated = new Date(sessionStorage.getItem('lastTimeAuthenticated'));
-              if(new Date(lastTimeAuthenticated.getTime() + 1 * 60000) <= new Date()){
+              if(new Date(lastTimeAuthenticated.getTime() + 30 * 60000) <= new Date()){
                 this.authService.refreshToken().subscribe(
                   data2 => {
                     sessionStorage.setItem('token', data2.result);

@@ -6,6 +6,7 @@ function toDoItemsRoutes(){
     this.router = express.Router();
 
     this.router.post('/', authMiddleware, toDoItemsController.insertItem)
+    this.router.post('/insertAll', authMiddleware, toDoItemsController.insertAll)
     this.router.get('/getAll/:toDoId', authMiddleware, toDoItemsController.getAll)
 
     return this.router;

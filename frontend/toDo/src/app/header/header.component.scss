@@ -25,8 +25,19 @@
             align-items: center;
             justify-content: center;
             font-size: 16px;
-            a{
+
+            &.logout{
                 color: var(--color-primary);
+                a {
+                    color: var(--color-primary);
+                }
+            }
+            a {
+                color: var(--color-primary);
+            }
+            i{
+                font-size: 18px;
+                padding-left: 5px;
             }
             cursor: pointer;
         }
@@ -68,6 +79,10 @@
                 color: var(--color-red);
             }
             
+        }
+        .invalid-feedback{
+            padding-top: var(--space-sm);
+            color: var(--color-red);
         }
 
         button{

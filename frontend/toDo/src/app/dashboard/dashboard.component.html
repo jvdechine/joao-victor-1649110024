@@ -1,1 +1,66 @@
-<p>dashboard works!</p>
+<div class="to-do-dashboard">
+    <app-header [showLinks]="false"></app-header>
+    <div class="page-title">
+        <div class="row center aligned">
+            <div class="center floated sixteen wide column">
+                <span class="title">Minhas Tarefas</span>
+            </div>
+        </div>
+    </div>
+    <div class="to-dos" *ngIf="toDos">
+        <div class="row">
+            <div class="ui grid stackable doubling center aligned">
+                <div ngf *ngFor="let toDo of toDos" class="to-do five wide tablet three wide computer column item">
+                    <div class="content">
+                        <div class="color" [style.background]="toDo.color ? toDo.color : '#440381'">
+                            <i class="edit outline icon" (click)="edit(toDo._id)"></i>
+                            <i class="share alternate icon" (click)="share(toDo)"></i>
+                        </div>
+                        <div class="title">
+                            {{toDo.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="not-to-dos" *ngIf="!toDos || toDos.length == 0">
+        <div class="row">
+            <div class="ui grid  center aligned">
+                <div class="sixteen wide column">
+                    <span class="main">
+                        Você ainda não tem tarefas cadastradas. 
+                    </span>
+                    <span class="secondary">
+                        Clique no botão do rodapé para cadastra-las.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="add-to-do" (click)="openModalAdd()">
+        <i class="plus icon"></i>
+    </div>
+    <div class="ui modal tiny modal-add-to-do">
+        <i class="icon close"></i>  
+        <div class="header">
+            <span>Cadastrar Tarefa</span>
+        </div>
+        <div class="content scrolling">
+            <form [formGroup]="addToDoForm" (ngSubmit)="submitToDo()">
+                <div class="container-form">
+                    <div class="container-field name">
+                        <label for="name">Nome da Tarefa*</label>
+                        <input placeholder="Nome da Tarefa" 
+                        formControlName="name"
+                        #name/>
+                        <div *ngIf="addToDoControl.name.errors && (addToDoControl.name.dirty || addToDoControl.name.touched)" class="invalid-feedback">
+                            <span *ngIf="addToDoControl.name.errors.required">Campo Obrigatório</span>
+                        </div>
+                    </div>
+                    <button class="btn-to-do" type="button" type="submit" [disabled]="!this.addToDoForm.valid">Criar Tarefa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

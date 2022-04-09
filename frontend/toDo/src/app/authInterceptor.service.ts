@@ -2,7 +2,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient, HttpR
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { from, Observable } from "rxjs";
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
 
 @Injectable()
@@ -10,27 +10,30 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private http: HttpClient,
                 private router: Router){}
     intercept( request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
         if(sessionStorage.getItem('token') && request.url.indexOf('isAuthenticated?n=1') == -1){
             var token = sessionStorage.getItem('token');
             try{
-                return from(this.isAuthenticated(token))
+                return this.isAuthenticated(token)
                 .pipe(
-                    switchMap(
-                        data => {
-                            request = request.clone({
-                                url:  request.url,
-                                setHeaders: {
-                                    Authorization: `Bearer ${token}`
-                                }
-                            });
-                            return next.handle(request);
+                    tap((data) => {
+                        
+                    }),
+                    mergeMap(data => next.handle(request.clone({
+                        setHeaders: {
+                            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+                           'Accept': 'application/json',
                         }
-                    )
-                )
+                    }))),
+                    catchError(() => {
+                        return next.handle(request);
+                    })
+                );
             }catch(e){
-                sessionStorage.removeItem('token');
-                sessionStorage.removeItem('lastTimeAuthenticated')
-                this.router.navigate(['/dashboard'])
+                if(request.url.indexOf('auth') == -1)
+                    this.router.navigate(['/'])
+                else
+                    return next.handle(request);
             }
         }else{
             return next.handle(request);
@@ -38,6 +41,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     isAuthenticated(token): any{
-        return this.http.get(environment.apiUrl + 'auth/isAuthenticated?n=1', {headers: {'Authorization': 'Bearer ' + token }}).toPromise();
+        return this.http.get(environment.apiUrl + 'auth/isAuthenticated?n=1', {headers: {'Authorization': 'Bearer ' + token }});
     }
 }

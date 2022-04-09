@@ -16,4 +16,11 @@ export class HeaderService {
     }
     return this.http.post(environment.apiUrl + 'auth', json);
   }
+
+  registerUser(name, phoneNumber, email, password):any{
+    var json = {
+      name, phoneNumber, email, password
+    }
+    return this.http.post(environment.apiUrl + 'user/register', json);
+  }
 }

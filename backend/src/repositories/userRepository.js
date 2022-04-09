@@ -20,18 +20,26 @@ function userRepository(){
 
     async function createUser(name, phoneNumber, email, password, hash){
         try{
-            const user = new User({
-                _id: new mongoose.Types.ObjectId(),
-                name: name,
-                email: email,
-                phoneNumber: phoneNumber,
-                password: hash,
-                date: new Date()
-            });
-            await user.save();   
-            return {
-                status: true,
-                result: "Usuário cadastrado com sucesso!"
+            var hasUser = await this.getUserByEmail(email);
+            if(hasUser.status && hasUser.result.length == 0){
+                const user = new User({
+                    _id: new mongoose.Types.ObjectId(),
+                    name: name,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    password: hash,
+                    date: new Date()
+                });
+                await user.save();   
+                return {
+                    status: true,
+                    result: "Usuário cadastrado com sucesso!"
+                }
+            }else{
+                return {
+                    status: false,
+                    result: "E-mail já cadastrado!"
+                }
             }
         }catch(err){
             return {

@@ -1,0 +1,161 @@
+.page-title{
+    text-align: center;
+    font-size: var(--font-lg);
+    padding: var(--space-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+}
+
+.to-dos{
+    margin-top: var(--space-lg);
+    padding: var(--space-sm);
+
+    .item{
+        min-height: 100px;
+        margin-bottom: var(--space-md);
+        margin-left: 6px;
+        margin-right: 6px;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+
+        .content{
+            height: 100%;
+            .color{
+                position: absolute;
+                height: 100%;
+                right: 0;
+                top: 0;
+                width: 25%;
+                background: var(--color-primary);
+                border-radius: 0 5px 5px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                cursor: pointer;
+
+                .icon{
+                    color: var(--color-white);
+                    font-size: 18px;
+                    margin: 0;
+                    &:first-child{
+                        margin-bottom: var(--space-md);
+                    }
+                }
+            }
+
+            .title{
+                font-size: 16px;
+                width: 75%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+            }
+        }
+    }
+}
+
+.add-to-do{
+    position: fixed;
+    bottom: 70px;
+    right: 70px;
+    width: 70px;
+    height: 70px;
+    background: var(--color-primary);
+    border-radius: 100px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i{
+        margin: 0;
+        font-size: 24px;
+        color: var(--color-white);
+    }
+}
+
+.modal-add-to-do{
+    .header{
+        text-align: center;
+        font-weight: var(--font-bold);
+        font-size: 20px;
+        color: var(--color-primary);
+    }
+    .container-form{
+        .container-field{
+            padding: 10px 0;
+
+            label{
+                display: block;
+                font-weight: var(--font-bold);
+                font-size: 16px;
+                padding-bottom: var(--space-sm);
+                color: var(--color-primary);
+            }
+
+            input, textarea{
+                width: 100%;
+                padding: var(--space-sm);
+                border-radius: 5px;
+                border: 1px solid var(--color-primary);
+                font-size: 14px;
+                font-family: 'montserrat';
+                font-weight: 500;
+                
+                &[type="color"]{
+                    font-size: 50px;
+                    padding: 0;
+                    border: 0;
+                    background: #fff;
+                    height: 40px;
+                    
+                    ::-webkit-color-swatch {
+                        border: none;
+                        border-radius: 10px;
+                        padding: 0;
+                    }
+                    ::-webkit-color-swatch-wrapper {
+                        border: none;
+                        border-radius: 10px;
+                        padding: 0;
+                    }
+                }
+            }
+
+            textarea{
+                height: 100px;
+            }
+
+            .invalid-feedback{
+                padding-top: var(--space-sm);
+                color: var(--color-red);
+            }
+            
+        }
+
+        button{
+            width: 100%;
+            margin: var(--space-lg) 0;
+            height: 40px;
+            border-radius: 5px;
+            border: 2px solid var(--color-white);
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-weight: var(--font-bold);
+            font-size: 16px;
+            font-family: 'montserrat';
+        }
+    }
+}
+
+.not-to-dos{
+    .main{
+        font-weight: 600;
+        font-size: var(--font-lg);
+        margin-bottom: var(--space-sm);
+        display: block;
+    }
+}

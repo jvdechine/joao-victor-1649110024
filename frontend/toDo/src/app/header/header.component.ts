@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { CommomService } from '../commom.service';
@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   nameUser: string = "";
   loginForm: FormGroup;
   registerForm: FormGroup;
+  @Input() showLinks: boolean = true;
 
   constructor(private fb: FormBuilder,
               private headerService: HeaderService,
@@ -32,11 +33,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.registerForm = this.fb.group({
 			email: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      phoneNumber: ['', [Validators.required, Validators.minLength(9)]],
       password: ['', Validators.required],
-      name: ['', Validators.required, Validators.minLength(3)],
-      phoneNumber: ['',Validators.required, Validators.minLength(9)],
       confirmPassword: ['', Validators.required]
-		});
+		}, {validator: this.passwordConfirming});
 
     this.authService.verifyIfIsAuth().subscribe(
       data => {
@@ -82,13 +83,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  submitRegister(){
+    if(this.registerForm.valid){
+      this.headerService.registerUser(this.registerControl.name.value, this.registerControl.phoneNumber.value, this.registerControl.email.value, this.registerControl.password.value).subscribe(
+        data => {
+          this.commomService.displayMessageUser('success', 'Usuário cadastrado com sucesso. Por favor, faça login para acessar.')
+          $('.modal-register').modal('hide');
+        },
+        err => {
+          this.commomService.displayMessageUser('error', err.error.message)
+        }
+      );
+    }
+  }
+
   scrollToAbout(){
     document.getElementsByClassName('about-us')[0].scrollIntoView()
   }
 
-  
+  logout(){
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('lastTimeAuthenticated')
+    document.location.reload()
+  }
+
+  passwordConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('password').value !== c.get('confirmPassword').value) {
+      return {invalid: true};
+    }
+  }
 
   ngOnDestroy(): void {
-    $('.ui.modal').modal('hide');
+    $('.ui.modal').modal("hide");
+    $('.ui.modal').remove();
   }
 }

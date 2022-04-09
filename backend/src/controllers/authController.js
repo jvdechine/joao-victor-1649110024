@@ -4,7 +4,7 @@ function authController(){
     async function authenticate(req, res, next){
         var result = await authService.authenticate(req.body.email, req.body.password);
         if (result.status) {
-            req._operation = "SELECT";
+            req._operation = "INSERT";
             req._result = result.result;
         } else {
             req._result = undefined;
@@ -32,7 +32,8 @@ function authController(){
     async function isAuthenticated(req, res, next){
         req._operation = "SELECT";
         req._result = {
-            name: req.token.name
+            name: req.token.name,
+            userId: req.token.userId
         };
         next();
     }

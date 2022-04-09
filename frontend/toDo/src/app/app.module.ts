@@ -12,6 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertComponent } from './alert/alert.component';
 import { AuthInterceptor } from './authInterceptor.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ToDoEditComponent } from './to-do-edit/to-do-edit.component';
+import { NgxDnDModule } from '@swimlane/ngx-dnd';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeaderComponent,
     FooterComponent,
     AlertComponent,
-    DashboardComponent
+    DashboardComponent,
+    ToDoEditComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDnDModule.forRoot()
   ],
   providers: [
     AuthInterceptor,
