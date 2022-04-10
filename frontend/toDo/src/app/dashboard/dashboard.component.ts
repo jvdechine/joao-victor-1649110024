@@ -28,11 +28,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required, Validators.minLength(3)]],
       color: ['#440381']
 		});
+    this.commomService.addLoading();
     this.dashBoardService.getToDos().subscribe(
       data => {
+        this.commomService.removeLoading()
         this.toDos = data.result
       },
       err => {
+        this.commomService.removeLoading()
         this.commomService.displayMessageUser('error', "Erro ao recuperar as tarefas")
       }
     )
@@ -44,12 +47,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   submitToDo(){
     if(this.addToDoForm.valid){
+      this.commomService.addLoading()
       this.dashBoardService.addToDo(this.addToDoControl.name.value, this.getRandomColor()).subscribe(
         data => {
+          this.commomService.removeLoading()
           this.closeModalAdd();
           this.edit(data.result._id)
         },
         error => {
+          this.commomService.removeLoading()
           this.commomService.displayMessageUser('error', error.error?.message)
         }
       )
@@ -78,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   share(toDo: ToDo){
-    window.location.href = `mailto:?subject=${encodeURIComponent(`Edite meu To Do: ${toDo.name}`)}&body=${encodeURIComponent(`Acesse no link: ${environment.selfUrl}edit-to-do/${toDo._id}`)}`;
+    window.location.href = `mailto:?subject=${encodeURIComponent(`Edite meu To Do: ${toDo.name}`)}&body=${encodeURIComponent(`Acesse no link: ${document.location.origin}edit-to-do/${toDo._id}`)}`;
   }
 
   ngOnDestroy(): void {

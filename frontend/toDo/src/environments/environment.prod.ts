@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://api-vibbra.vercel.app/api/v1/'
 };

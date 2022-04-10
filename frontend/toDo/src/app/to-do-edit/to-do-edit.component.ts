@@ -35,12 +35,15 @@ export class ToDoEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activedRoute.paramMap.subscribe( paramMap => {
       if(paramMap.get('id')){
+        this.commomService.addLoading()
         this.toDoEditService.getToDo(paramMap.get('id')).subscribe(
           data => {
+            this.commomService.removeLoading()
             this.toDo = data.result;
             this.getItems();
           },
           err => {
+            this.commomService.removeLoading()
             this.router.navigate(['/dashboard'])
           }
         )
@@ -52,9 +55,14 @@ export class ToDoEditComponent implements OnInit, OnDestroy {
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.minLength(3)]]
 		});
+    this.commomService.addLoading()
     this.authService.verifyIfIsAuth().subscribe(
       data => {
+        this.commomService.removeLoading()
         this.userLogged = data.result.userId;
+      },
+      err => {
+        this.commomService.removeLoading()
       }
     )
   }
@@ -72,13 +80,16 @@ export class ToDoEditComponent implements OnInit, OnDestroy {
           toDoId: this.toDo._id,
           done: false,
         }
+        this.commomService.addLoading()
         this.toDoEditService.insertItem(json).subscribe(
           data => {
+            this.commomService.removeLoading()
             this.commomService.displayMessageUser('success', 'Tarefa inserida com sucesso');
             this.getItems();
             this.closeModalAdd();
           },
           err => {
+            this.commomService.removeLoading()
             this.commomService.displayMessageUser('error', 'Erro ao inserir sua tarefa');
           }
         )
@@ -105,9 +116,14 @@ export class ToDoEditComponent implements OnInit, OnDestroy {
   }
 
   getItems(){
+    this.commomService.addLoading()
     this.toDoEditService.getAllItems(this.toDo._id).subscribe(
       data2 => {
+        this.commomService.removeLoading()
         this.nestedLists = data2.result;
+      },
+      err => {
+        this.commomService.removeLoading()
       }
     )
   }

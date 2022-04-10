@@ -38,13 +38,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
 		}, {validator: this.passwordConfirming});
-
+    this.commomService.addLoading()
     this.authService.verifyIfIsAuth().subscribe(
       data => {
+        this.commomService.removeLoading()
         this.isAuthenticated = true;
         this.nameUser = data.result.name;
       },
       err => {
+        this.commomService.removeLoading()
         this.isAuthenticated = false;
       }
     )
@@ -70,13 +72,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   submitLogin(){
     if(this.loginForm.valid){
+      this.commomService.addLoading()
       this.headerService.loginUser(this.loginControl.email.value, this.loginControl.password.value).subscribe(
         data => {
+          this.commomService.removeLoading()
           sessionStorage.setItem('token', data.result.token)
           sessionStorage.setItem('lastTimeAuthenticated', new Date().toString())
           this.router.navigate(['/dashboard']);
         },
         err => {
+          this.commomService.removeLoading()
           this.commomService.displayMessageUser('error', err.error.message)
         }
       );
@@ -85,12 +90,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   submitRegister(){
     if(this.registerForm.valid){
+      this.commomService.addLoading()
       this.headerService.registerUser(this.registerControl.name.value, this.registerControl.phoneNumber.value, this.registerControl.email.value, this.registerControl.password.value).subscribe(
         data => {
+          this.commomService.removeLoading();
           this.commomService.displayMessageUser('success', 'Usuário cadastrado com sucesso. Por favor, faça login para acessar.')
           $('.modal-register').modal('hide');
         },
         err => {
+          this.commomService.removeLoading();
           this.commomService.displayMessageUser('error', err.error.message)
         }
       );

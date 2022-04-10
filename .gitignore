@@ -1,3 +1,4 @@
 backend/node_modules
+frontend_host/node_modules
 frontend/toDo/node_modules
 frontend/toDo/dist
