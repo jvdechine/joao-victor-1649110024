@@ -4,7 +4,7 @@
         <div class="ui grid stackable container center aligned">
             <div class="row">
                 <div class="title-to-do">
-                    <span [style.color]="toDo.color">Nome da Tarefa: {{toDo.name}}</span>
+                    <span [style.color]="toDo.color">Nome do Item: {{toDo.name}}</span>
                 </div>
             </div>
             <div class="row">
@@ -58,7 +58,7 @@
     <div class="ui modal tiny modal-add-to-do">
         <i class="icon close"></i>  
         <div class="header">
-            <span>Cadastrar Tarefa</span>
+            <span>Cadastrar Item</span>
         </div>
         <div class="content scrolling">
             <form [formGroup]="addToDoItemForm" (ngSubmit)="submitToDo()">
@@ -81,7 +81,7 @@
                             <span *ngIf="addToDoItemControl.description.errors.required">Campo Obrigatório</span>
                         </div>
                     </div>
-                    <button class="btn-to-do" type="button" type="submit" [disabled]="!this.addToDoItemForm.valid">{{toDoItem ? 'Editar' : 'Criar'}} Tarefa</button>
+                    <button class="btn-to-do" type="button" type="submit" [disabled]="!this.addToDoItemForm.valid">{{toDoItem ? 'Editar' : 'Criar'}} Item</button>
                 </div>
             </form>
         </div>

@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       err => {
         this.commomService.removeLoading()
-        this.commomService.displayMessageUser('error', "Erro ao recuperar as tarefas")
+        this.commomService.displayMessageUser('error', "Erro ao recuperar os ToDo's")
       }
     )
   }
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   share(toDo: ToDo){
-    window.location.href = `mailto:?subject=${encodeURIComponent(`Edite meu To Do: ${toDo.name}`)}&body=${encodeURIComponent(`Acesse no link: ${document.location.origin}edit-to-do/${toDo._id}`)}`;
+    window.location.href = `mailto:?subject=${encodeURIComponent(`Edite meu To Do: ${toDo.name}`)}&body=${encodeURIComponent(`Acesse no link: ${document.location.origin}/edit-to-do/${toDo._id}`)}`;
   }
 
   ngOnDestroy(): void {

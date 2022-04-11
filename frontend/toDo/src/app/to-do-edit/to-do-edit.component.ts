@@ -84,13 +84,13 @@ export class ToDoEditComponent implements OnInit, OnDestroy {
         this.toDoEditService.insertItem(json).subscribe(
           data => {
             this.commomService.removeLoading()
-            this.commomService.displayMessageUser('success', 'Tarefa inserida com sucesso');
+            this.commomService.displayMessageUser('success', 'Item inserido com sucesso');
             this.getItems();
             this.closeModalAdd();
           },
           err => {
             this.commomService.removeLoading()
-            this.commomService.displayMessageUser('error', 'Erro ao inserir sua tarefa');
+            this.commomService.displayMessageUser('error', 'Erro ao inserir seu item');
           }
         )
       }else{
@@ -137,7 +137,7 @@ export class ToDoEditComponent implements OnInit, OnDestroy {
       },
       err => {
         this.commomService.removeLoading();
-        this.commomService.displayMessageUser('error', 'Erro ao inserir sua tarefa');
+        this.commomService.displayMessageUser('error', 'Erro ao inserir seu item');
       }
     )
   }

@@ -4,7 +4,7 @@ const userRepository = require('../repositories/userRepository')();
 
 function userService(){
     async function signUp(name, phoneNumber, email, password){
-        if(!name || !phoneNumber || !email || !password){
+        if(!name || !email || !password){
             return {
                 status: false,
                 result: 'Um ou mais campos não foram preenchidos.'

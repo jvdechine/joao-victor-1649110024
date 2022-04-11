@@ -134,14 +134,14 @@
                 margin-top: var(--space-sm);
 
                 &:before {
-                    content: "Crie suas tarefas";
+                    content: "Crie seus itens";
                     font-weight: 600;
                     font-weight: 600;
                     font-size: var(--font-lg);
                     margin-bottom: var(--space-sm);
                 }
                 &:after {
-                    content: "Clique no rodapé no canto para criar a primeira tarefa.";
+                    content: "Clique no rodapé no canto para criar o primeiro item.";
                 }
             }
 
@@ -156,7 +156,7 @@
                             display: none;
                         }
                         &:after {
-                            content: "Arraste aqui para vincular uma tarefa a esta.";
+                            content: "Arraste aqui para vincular um item a este.";
                             font-weight: normal;
                             color: var(--color-primary);
                         }

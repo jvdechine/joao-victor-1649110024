@@ -15,7 +15,7 @@
                     <a (click)="clickRegister()">Cadastre-se</a>
                 </div>
                 <div *ngIf="isAuthenticated" class="item">
-                    <a [routerLink]="['/dashboard']">Minhas Tarefas</a>
+                    <a [routerLink]="['/dashboard']">Meus ToDo's</a>
                 </div>
                 <div *ngIf="isAuthenticated" class="item logout" (click)="logout()">
                     <a>Sair</a>
@@ -88,16 +88,6 @@
                     <div *ngIf="registerControl.email.errors && (registerControl.email.dirty || registerControl.email.touched)" class="invalid-feedback">
                         <span *ngIf="registerControl.email.errors.required">Campo Obrigatório</span>
                         <span *ngIf="registerControl.email.errors.pattern">Informe um e-mail válido</span>
-                    </div>
-                </div>
-
-                <div class="container-field phoneNumber">
-                    <label for="phoneNumber">Telefone/Celular*</label>
-                    <input placeholder="Telefone/Celular" 
-                    formControlName="phoneNumber"
-                    #phoneNumber/>
-                    <div *ngIf="registerControl.phoneNumber.errors && (registerControl.phoneNumber.dirty || registerControl.phoneNumber.touched)" class="invalid-feedback">
-                        <span *ngIf="registerControl.phoneNumber.errors.required">Campo Obrigatório</span>
                     </div>
                 </div>
 

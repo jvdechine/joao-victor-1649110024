@@ -3,7 +3,7 @@
     <div class="page-title">
         <div class="row center aligned">
             <div class="center floated sixteen wide column">
-                <span class="title">Minhas Tarefas</span>
+                <span class="title">Meus ToDo's</span>
             </div>
         </div>
     </div>
@@ -29,10 +29,10 @@
             <div class="ui grid  center aligned">
                 <div class="sixteen wide column">
                     <span class="main">
-                        Você ainda não tem tarefas cadastradas. 
+                        Você ainda não tem ToDo's cadastrados. 
                     </span>
                     <span class="secondary">
-                        Clique no botão do rodapé para cadastra-las.
+                        Clique no botão do rodapé para cadastra-los.
                     </span>
                 </div>
             </div>
@@ -44,21 +44,21 @@
     <div class="ui modal tiny modal-add-to-do">
         <i class="icon close"></i>  
         <div class="header">
-            <span>Cadastrar Tarefa</span>
+            <span>Cadastrar ToDo</span>
         </div>
         <div class="content scrolling">
             <form [formGroup]="addToDoForm" (ngSubmit)="submitToDo()">
                 <div class="container-form">
                     <div class="container-field name">
-                        <label for="name">Nome da Tarefa*</label>
-                        <input placeholder="Nome da Tarefa" 
+                        <label for="name">Nome do ToDo*</label>
+                        <input placeholder="Nome do ToDo" 
                         formControlName="name"
                         #name/>
                         <div *ngIf="addToDoControl.name.errors && (addToDoControl.name.dirty || addToDoControl.name.touched)" class="invalid-feedback">
                             <span *ngIf="addToDoControl.name.errors.required">Campo Obrigatório</span>
                         </div>
                     </div>
-                    <button class="btn-to-do" type="button" type="submit" [disabled]="!this.addToDoForm.valid">Criar Tarefa</button>
+                    <button class="btn-to-do" type="button" type="submit" [disabled]="!this.addToDoForm.valid">Criar ToDo</button>
                 </div>
             </form>
         </div>
