@@ -1,4 +1,5 @@
 backend/node_modules
+backend/.env
 frontend_host/node_modules
 frontend/toDo/node_modules
 frontend/toDo/dist
